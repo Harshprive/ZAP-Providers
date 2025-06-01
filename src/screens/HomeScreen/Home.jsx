@@ -11,125 +11,190 @@ import {
   SafeAreaView,
   navigation,
   Platform,
-  StatusBar
+  StatusBar,
+  FlatList
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Footer from "../../components/footerbar";
-// import Homerequest from '../components/Homerequest';
-// import Currentservice from '../components/Currentservice';
 
-import location from "./location";
 import { useNavigation } from "@react-navigation/native";
 import HomeRequest from "./HomeComponets/Homerequest";
 import Currentservice from "../../App Screens/components/Currentservice";
 import HomeHeader from "./HomeComponets/HomeHeader";
+import DutyToggle from "./HomeComponets/DutyToggle";
+import ServiceCard from "./HomeComponets/ServiceCard";
 
-const ServiceCard = ({ service, onPress, expanded }) => {
-  const navigation = useNavigation();
+const mockServices = [
+    {
+      title: "Washing Machine Service",
+      location: "paul pagba Shankar Nagar",
+      description:
+        "Machine making loud noise during Cycle.Water leaking Form bottom.",
+      attachments: [
+        // require('./assets/img1.jpg'),
+        // require('./assets/img2.jpg'),
+      ],
+      userLocation: "Your Location",
+      serviceLocation: "Mumbai, Shankar Nagar",
+      distance: "5.2 Km",
+      estimatedTime: "20 Min",
+status:"Schedule Service"
 
-  if (expanded) {
-    return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={expanded}
-        onRequestClose={onPress}
-      >
-        <View style={styles.modalView}>
-          <View style={styles.expandedCard}>
-            <TouchableOpacity style={styles.closeButton} onPress={onPress}>
-              <Ionicons name="close" size={24} color="#666" />
-            </TouchableOpacity>
+    },
+    {
+      title: "Washing Machine Service",
+      location: "paul pagba Shankar Nagar",
+      description:
+        "Machine making loud noise during Cycle.Water leaking Form bottom.",
+      attachments: [
+        // require('./assets/img1.jpg'),
+        // require('./assets/img2.jpg'),
+      ],
+      userLocation: "Your Location",
+      serviceLocation: "Mumbai, Shankar Nagar",
+      distance: "5.2 Km",
+      estimatedTime: "20 Min",
+      status:"Main Service"
+    },
+    {
+      title: "Washing Machine Service",
+      location: "paul pagba Shankar Nagar",
+      description:
+        "Machine making loud noise during Cycle.Water leaking Form bottom.",
+      attachments: [
+        // require('./assets/img1.jpg'),
+        // require('./assets/img2.jpg'),
+      ],
+      userLocation: "Your Location",
+      serviceLocation: "Mumbai, Shankar Nagar",
+      distance: "5.2 Km",
+      estimatedTime: "20 Min",
+      status:"Main Service"
+    },
+    {
+      title: "Washing Machine Service",
+      location: "paul pagba Shankar Nagar",
+      description:
+        "Machine making loud noise during Cycle.Water leaking Form bottom.",
+      attachments: [
+        // require('./assets/img1.jpg'),
+        // require('./assets/img2.jpg'),
+      ],
+      userLocation: "Your Location",
+      serviceLocation: "Mumbai, Shankar Nagar",
+      distance: "5.2 Km",
+      estimatedTime: "20 Min",
+      status:"Problem Service"
+    },
+    
+    // Add more service objects as needed
+  ];
 
-            <Text style={styles.serviceTitle}>{service.title}</Text>
-            <Text style={styles.locationText}>{service.location}</Text>
+// const ServiceCard = ({ service, onPress, expanded }) => {
+//   const navigation = useNavigation();
 
-            <Text style={styles.sectionTitle}>Problem Description</Text>
-            <Text style={styles.descriptionText}>{service.description}</Text>
+//   if (expanded) {
+//     return (
+//       <Modal
+//         animationType="slide"
+//         transparent={true}
+//         visible={expanded}
+//         onRequestClose={onPress}
+//       >
+//         <View style={styles.modalView}>
+//           <View style={styles.expandedCard}>
+//             <TouchableOpacity style={styles.closeButton} onPress={onPress}>
+//               <Ionicons name="close" size={24} color="#666" />
+//             </TouchableOpacity>
 
-            <Text style={styles.sectionTitle}>Attachments</Text>
-            <View style={styles.attachmentsContainer}>
-              {service.attachments.map((img, index) => (
-                <Image key={index} source={img} style={styles.expandedImage} />
-              ))}
-            </View>
+//             <Text style={styles.serviceTitle}>{service.title}</Text>
+//             <Text style={styles.locationText}>{service.location}</Text>
 
-            <View style={styles.locationContainer}>
-              <View style={styles.locationItem}>
-                <Ionicons name="location-outline" size={20} color="#666" />
-                <Text style={styles.locationLabel}>Your Location</Text>
-              </View>
-              <Text style={styles.locationValue}>{service.userLocation}</Text>
+//             <Text style={styles.sectionTitle}>Problem Description</Text>
+//             <Text style={styles.descriptionText}>{service.description}</Text>
 
-              <View style={styles.locationItem}>
-                <Ionicons name="location-outline" size={20} color="#666" />
-                <Text style={styles.locationLabel}>
-                  {service.serviceLocation}
-                </Text>
-              </View>
-            </View>
+//             <Text style={styles.sectionTitle}>Attachments</Text>
+//             <View style={styles.attachmentsContainer}>
+//               {service.attachments.map((img, index) => (
+//                 <Image key={index} source={img} style={styles.expandedImage} />
+//               ))}
+//             </View>
 
-            <View style={styles.detailsRow}>
-              <View>
-                <Text style={styles.detailLabel}>Distance</Text>
-                <Text style={styles.detailValue}>{service.distance}</Text>
-              </View>
-              <View>
-                <Text style={styles.detailLabel}>Estimated Time</Text>
-                <Text style={styles.detailValue}>{service.estimatedTime}</Text>
-              </View>
-            </View>
+//             <View style={styles.locationContainer}>
+//               <View style={styles.locationItem}>
+//                 <Ionicons name="location-outline" size={20} color="#666" />
+//                 <Text style={styles.locationLabel}>Your Location</Text>
+//               </View>
+//               <Text style={styles.locationValue}>{service.userLocation}</Text>
 
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={[styles.actionButton, styles.rejectButton]}
-                onPress={onPress}
-              >
-                <Text style={styles.buttonText}>Reject</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("location")}
-                style={[styles.actionButton, styles.acceptButton]}
-              >
-                <Text style={[styles.buttonText, styles.acceptButtonText]}>
-                  Accept
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
+//               <View style={styles.locationItem}>
+//                 <Ionicons name="location-outline" size={20} color="#666" />
+//                 <Text style={styles.locationLabel}>
+//                   {service.serviceLocation}
+//                 </Text>
+//               </View>
+//             </View>
 
-  return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-      <View>
-        <Text style={styles.serviceTitle}>{service.title}</Text>
-        <Text style={styles.locationText}>{service.location}</Text>
-        <Text style={styles.descriptionText}>{service.description}</Text>
-        <View style={styles.imageContainer}>
-          {service.attachments.slice(0, 2).map((img, index) => (
-            <Image key={index} source={img} style={styles.thumbnail} />
-          ))}
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.actionButton, styles.rejectButton]}>
-            <Text style={styles.buttonText}>Reject</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("location")}
-            style={[styles.actionButton, styles.acceptButton]}
-          >
-            <Text style={[styles.buttonText, styles.acceptButtonText]}>
-              Accept
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+//             <View style={styles.detailsRow}>
+//               <View>
+//                 <Text style={styles.detailLabel}>Distance</Text>
+//                 <Text style={styles.detailValue}>{service.distance}</Text>
+//               </View>
+//               <View>
+//                 <Text style={styles.detailLabel}>Estimated Time</Text>
+//                 <Text style={styles.detailValue}>{service.estimatedTime}</Text>
+//               </View>
+//             </View>
+
+//             <View style={styles.buttonContainer}>
+//               <TouchableOpacity
+//                 style={[styles.actionButton, styles.rejectButton]}
+//                 onPress={onPress}
+//               >
+//                 <Text style={styles.buttonText}>Reject</Text>
+//               </TouchableOpacity>
+//               <TouchableOpacity
+//                 onPress={() => navigation.navigate("location")}
+//                 style={[styles.actionButton, styles.acceptButton]}
+//               >
+//                 <Text style={[styles.buttonText, styles.acceptButtonText]}>
+//                   Accept
+//                 </Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//         </View>
+//       </Modal>
+//     );
+//   }
+
+//   return (
+//     <TouchableOpacity style={styles.card} onPress={onPress}>
+//       <View>
+//         <Text style={styles.serviceTitle}>{service.title}</Text>
+//         <Text style={styles.locationText}>{service.location}</Text>
+//         <Text style={styles.descriptionText}>{service.description}</Text>
+//         <View style={styles.imageContainer}>
+//           {service.attachments.slice(0, 2).map((img, index) => (
+//             <Image key={index} source={img} style={styles.thumbnail} />
+//           ))}
+//         </View>
+//         <View style={styles.buttonContainer}>
+//           <TouchableOpacity style={[styles.actionButton, styles.rejectButton]}>
+//             <Text style={styles.buttonText}>Reject</Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate("location")}
+//             style={[styles.actionButton, styles.acceptButton]}
+//           >
+//             <Text style={[styles.buttonText, styles.acceptButtonText]}>
+//               Accept
+//             </Text>
+//           </TouchableOpacity>
+//         </View>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
 
 
  
@@ -137,66 +202,26 @@ const ServiceCard = ({ service, onPress, expanded }) => {
 export default function Home() {
   const [selectedService, setSelectedService] = useState(null);
   const [showProduct, setShowProduct] = useState(true);
+const [expandedIndex, setExpandedIndex] = useState(null);
+  const [activeMode, setActiveMode] = useState('on');
 
-  const services = [
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-    },
-    // Add more service objects as needed
-  ];
+  const getFilteredServices = () => {
+    switch (activeMode) {
+      case 'off':
+        return [];
+      case 'working':
+        return mockServices.filter(service =>
+          ['Problem Service', 'Main Service',].includes(service.status)
+        );
+      case 'on':
+         return mockServices.filter(service =>
+          ['Problem Service', 'Main Service','Schedule Service'].includes(service.status)
+        );
+      default:
+        return mockServices;
+    }
+  };
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -206,10 +231,29 @@ export default function Home() {
           onPressed={() => setShowProduct((prev) => !prev)}
         />
       </View>
-       <ScrollView contentContainerStyle={styles.contentContainer}>
+     <DutyToggle activeMode={activeMode} setActiveMode={setActiveMode} />
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={getFilteredServices()}
+        keyExtractor={(_, i) => i.toString()}
+        renderItem={({ item, index }) => (
+          <ServiceCard
+            service={item}
+            expanded={expandedIndex === index}
+            onPress={() => setExpandedIndex(expandedIndex === index ? null : index)}
+            navigation={navigation}
+          />
+        )}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text>No services available.</Text>
+          </View>
+        }
+      />
+       {/* <ScrollView contentContainerStyle={styles.contentContainer}>
         {showProduct ? <HomeRequest /> : <Currentservice />}
       </ScrollView>
-   
+    */}
       {/* <Footer></Footer> */}
     </SafeAreaView>
   );

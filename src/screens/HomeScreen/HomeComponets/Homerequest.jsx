@@ -125,7 +125,7 @@ const ServiceCard = ({ service, onPress, expanded, navigation }) => {
         <TouchableOpacity style={styles.card} onPress={onPress}>
             <View>
             <View>
-                 <Text style={styles.locationText}>{service.status}</Text>
+                 <Text style={[styles.locationText,{color:'#726AE0'}]}>{service.status}</Text>
             </View>
                 <Text style={styles.serviceTitle}>{service.title}</Text>
                 <Text style={styles.locationText}>{service.location}</Text>
