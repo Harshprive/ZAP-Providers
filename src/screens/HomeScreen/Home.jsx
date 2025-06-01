@@ -10,6 +10,8 @@ import {
   Modal,
   SafeAreaView,
   navigation,
+  Platform,
+  StatusBar
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Footer from "../../components/footerbar";
@@ -217,6 +219,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
+     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
  headerContainer: {
 // marginTop:30

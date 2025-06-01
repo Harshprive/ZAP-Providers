@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, Modal, navigation } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, Modal, Platform,StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
               container: {
                             flex: 1,
                             backgroundColor: '#f5f5f5',
+                             paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
               },
               header: {
                             flexDirection: 'row',

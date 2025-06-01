@@ -16,13 +16,9 @@ import Messages from '../screens/MessagesScreens/Messages';
 import Schedule from '../screens/ScheduleScreens/Schedule';
 import Profile from '../screens/ProfileScreen/Profile';
 
-// import Profile from '../App Screens/ProfileScreen/Profile';
-// import Request from '../App Screens/RequestScreens/Request';
-// import Messages from '../App Screens/MessagesScreens/Messages';
-// import Schedule from '../App Screens/ScheduleScreens/Schedule';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-  const TAB_ICONS = {
+const TAB_ICONS = {
   Home: 'home',
   Request: 'clipboard-list',
   Schedule: 'calendar-alt',
@@ -40,16 +36,16 @@ export default function App() {
     // console.log('Rendering MyTabs',route.name);
     return (
       <Tab.Navigator
-       screenOptions={({ route }) => ({
-         headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          const iconName = TAB_ICONS[route.name];
-          return <FontAwesome5 name={iconName} size={size} color={color} solid />;
-        },
-        tabBarActiveTintColor: '#726AE0',
-        tabBarInactiveTintColor: 'gray',
-        
-      })}
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            const iconName = TAB_ICONS[route.name];
+            return <FontAwesome5 name={iconName} size={size} color={color} solid />;
+          },
+          tabBarActiveTintColor: '#726AE0',
+          tabBarInactiveTintColor: 'gray',
+
+        })}
 
       >
         <Tab.Screen name="Home" component={Home} />

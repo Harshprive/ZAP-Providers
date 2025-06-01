@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView ,Platform,StatusBar} from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
 
@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
               container: {
                             flex: 1,
                             backgroundColor: '#fff',
+                             paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
               },
               header: {
                             flexDirection: 'row',
