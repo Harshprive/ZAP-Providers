@@ -10,13 +10,23 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 const ServiceCard = ({ service, expanded, onPress, navigation }) => {
-  const renderAttachments = (isExpanded) => (
-    <View style={isExpanded ? styles.attachmentsExpanded : styles.attachments}>
-      {(isExpanded ? service.attachments : service.attachments.slice(0, 2)).map((img, i) => (
-        <Image key={i} source={img} style={isExpanded ? styles.expandedImage : styles.thumbnail} />
-      ))}
-    </View>
-  );
+  const isProblemService = service.type?.toLowerCase() === 'problem';
+
+  const renderAttachments = (isExpanded) => {
+    if (!isProblemService || !service.attachments?.length) return null;
+
+    return (
+      <View style={isExpanded ? styles.attachmentsExpanded : styles.attachments}>
+        {(isExpanded ? service.attachments : service.attachments.slice(0, 2)).map((img, i) => (
+          <Image
+            key={i}
+            source={img}
+            style={isExpanded ? styles.expandedImage : styles.thumbnail}
+          />
+        ))}
+      </View>
+    );
+  };
 
   const renderModal = () => (
     <Modal animationType="slide" transparent visible={expanded} onRequestClose={onPress}>
@@ -25,12 +35,29 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
           <TouchableOpacity style={styles.closeButton} onPress={onPress}>
             <Ionicons name="close" size={24} color="#666" />
           </TouchableOpacity>
+
           <Text style={styles.title}>{service.title}</Text>
           <Text style={styles.location}>{service.location}</Text>
+
           <Text style={styles.section}>Problem Description</Text>
           <Text>{service.description}</Text>
-          <Text style={styles.section}>Attachments</Text>
-          {renderAttachments(true)}
+
+          {isProblemService && (
+            <>
+              <Text style={styles.section}>Attachments</Text>
+              {renderAttachments(true)}
+              <TouchableOpacity
+                style={styles.reattachBtn}
+                onPress={() => {
+                  console.log('Re-Attachment pressed');
+                  // Add your image picker/camera logic here
+                }}
+              >
+                <Text style={styles.reattachText}>Re-Attachment</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
           <View style={styles.locationGroup}>
             <View style={styles.locationRow}>
               <Ionicons name="location-outline" size={20} color="#666" />
@@ -41,10 +68,12 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
               <Text>{service.serviceLocation}</Text>
             </View>
           </View>
+
           <View style={styles.details}>
             <Text>Distance: {service.distance}</Text>
             <Text>ETA: {service.estimatedTime}</Text>
           </View>
+
           <View style={styles.actions}>
             <TouchableOpacity style={styles.rejectBtn} onPress={onPress}>
               <Text>Reject</Text>
@@ -65,7 +94,7 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
     renderModal()
   ) : (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Text style={[styles.location,{ color: '#726AE0' }]}>{service.status}</Text>
+      <Text style={[styles.location, { color: '#726AE0' }]}>{service.status}</Text>
       <Text style={styles.title}>{service.title}</Text>
       <Text style={styles.location}>{service.location}</Text>
       <Text>{service.description}</Text>
@@ -180,6 +209,17 @@ const styles = StyleSheet.create({
   },
   acceptText: {
     color: '#fff',
+  },
+  reattachBtn: {
+    marginTop: 10,
+    backgroundColor: '#FFAA00',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  reattachText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

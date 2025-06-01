@@ -211,7 +211,7 @@ const [expandedIndex, setExpandedIndex] = useState(null);
         return [];
       case 'working':
         return mockServices.filter(service =>
-          ['Problem Service', 'Main Service',].includes(service.status)
+          ['Problem Service', 'Schedule Service',].includes(service.status)
         );
       case 'on':
          return mockServices.filter(service =>
