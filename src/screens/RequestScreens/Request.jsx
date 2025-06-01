@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Footer from '../components/footerbar';
+
 
 const ServiceRequestCard = ({ status, onPress }) => (
               <TouchableOpacity onPress={onPress} style={styles.card}>
@@ -51,7 +51,7 @@ export default function ServiceRequestScreen({ navigation }) {
                                                         <ServiceRequestCard status="Seen" onPress={() => handleCardPress('Seen')} />
                                                         <ServiceRequestCard status="Seen" onPress={() => handleCardPress('Seen')} />
                                           </ScrollView>
-                                          <Footer />
+                                       
                             </SafeAreaView>
               );
 }

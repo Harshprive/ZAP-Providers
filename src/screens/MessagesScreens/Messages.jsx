@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, Ima
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import Footer from '../components/footerbar';
+
 
 const ServiceCard = ({ name, status, imageUrl }) => {
               const navigation = useNavigation();
@@ -93,7 +93,7 @@ export default function Messages() {
                                                                       ))}
                                                         </ScrollView>
                                           </View>
-                                          <Footer />
+                                        
                             </SafeAreaView>
               );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Dimensions, SafeAreaView, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import Footer from '../components/footerbar';
+// import Footer from '../components/footerbar';
 
 export default function ClientLocationScreen({ navigation }) {
               const [location, setLocation] = useState(null);

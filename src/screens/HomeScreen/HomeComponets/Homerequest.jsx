@@ -124,6 +124,9 @@ const ServiceCard = ({ service, onPress, expanded, navigation }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
             <View>
+            <View>
+                 <Text style={styles.locationText}>{service.status}</Text>
+            </View>
                 <Text style={styles.serviceTitle}>{service.title}</Text>
                 <Text style={styles.locationText}>{service.location}</Text>
                 <Text style={styles.descriptionText}>{service.description}</Text>
@@ -200,7 +203,7 @@ const HomeRequest = () => {
             serviceLocation: 'Mumbai, Shankar Nagar',
             distance: '5.2 Km',
             estimatedTime: '20 Min',
-            status: "Problem service"
+            status: "Schedule service"
         },
         {
             title: 'Washing Machine Service',
@@ -214,7 +217,7 @@ const HomeRequest = () => {
             serviceLocation: 'Mumbai, Shankar Nagar',
             distance: '5.2 Km',
             estimatedTime: '20 Min',
-            status: "Main service"
+            status: "Problem service"
         },
         // Add more service objects as needed
     ];

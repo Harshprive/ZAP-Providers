@@ -101,7 +101,7 @@ const PorterPartnerLogin = ({ navigation }) => {
                 disabledStyle={styles.loginButton}
                 />
                 <Text
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('MyTab')}
                     style={styles.homeLink}
                     accessibilityRole="link"
                     accessibilityLabel="Navigate to home"

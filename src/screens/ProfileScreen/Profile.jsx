@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import Footer from '../components/footerbar';
+
 
 const StatItem = ({ value, label }) => (
               <View style={styles.statItem}>
@@ -152,7 +152,7 @@ export default function ProfileScreen({ navigation }) {
                                                         </View>
                                           </ScrollView>
 
-                                          <Footer></Footer>
+                                        
                             </SafeAreaView>
               );
 }

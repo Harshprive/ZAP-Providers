@@ -3,8 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+
+
+
 const Footer = () => {
-    const navigation = useNavigation(); // ✅ Get navigation object from React Navigation
+    const navigation = useNavigation(); 
+
 
     return (
         <View style={styles.footerContainer}>

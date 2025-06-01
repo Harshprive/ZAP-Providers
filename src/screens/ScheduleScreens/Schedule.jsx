@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, Modal, navigation } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Footer from '../components/footerbar';
+
 
 const ServiceScheduleApp = ({ navigation }) => {
               const [activeTab, setActiveTab] = useState('Today');
@@ -169,7 +169,7 @@ const ServiceScheduleApp = ({ navigation }) => {
                                                         </View>
                                           </Modal>
 
-                                          <Footer />
+                                         
                             </SafeAreaView>
               );
 };
