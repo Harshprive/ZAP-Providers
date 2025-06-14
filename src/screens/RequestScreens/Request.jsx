@@ -45,7 +45,7 @@ export default function ServiceRequestScreen({ navigation }) {
 
                                           {/* Request Cards */}
                                           <ScrollView style={styles.scrollView}>
-                                                        <ServiceRequestCard status="Un-seen" onPress={() => navigation.navigate("RequestDetails")} />
+                                                        <ServiceRequestCard status="Un-seen" onPress={() => navigation.navigate("CleaningServiceScreen")} />
                                                         <ServiceRequestCard status="Seen" onPress={() => handleCardPress('Seen')} />
                                                         <ServiceRequestCard status="Seen" onPress={() => handleCardPress('Seen')} />
                                                         <ServiceRequestCard status="Seen" onPress={() => handleCardPress('Seen')} />

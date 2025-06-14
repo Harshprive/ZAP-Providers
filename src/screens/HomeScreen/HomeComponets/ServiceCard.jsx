@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,32 @@ import {
   TouchableOpacity,
   Modal,
   StyleSheet,
+  FlatList,
+  Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import Button from '../../../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
-const ServiceCard = ({ service, expanded, onPress, navigation }) => {
+const ServiceCard = ({ service, expanded, onPress}) => {
   const isProblemService = service.type?.toLowerCase() === 'problem';
-
+    const [isClicked, setIsClicked] = useState(false);
+    const navigation = useNavigation(); 
+  // console.log("service", service)
+  const showImagePickerOptions = () => {
+    console.log("clickthe Tab")
+    // Alert.alert(
+    //   'Choose Option',
+    //   'Select image from:',
+    //   [
+    //     { text: 'Camera', onPress: ()=>{} },
+    //     { text: 'Gallery', onPress: ()=>{} },
+    //     { text: 'Cancel', style: 'cancel' },
+    //   ],
+    //   { cancelable: true }
+    // );
+  };
   const renderAttachments = (isExpanded) => {
     if (!isProblemService || !service.attachments?.length) return null;
 
@@ -35,26 +55,49 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
           <TouchableOpacity style={styles.closeButton} onPress={onPress}>
             <Ionicons name="close" size={24} color="#666" />
           </TouchableOpacity>
-
+          <Text style={[styles.location, { color: '#726AE0' }]}>{service.status}</Text>
           <Text style={styles.title}>{service.title}</Text>
           <Text style={styles.location}>{service.location}</Text>
 
           <Text style={styles.section}>Problem Description</Text>
           <Text>{service.description}</Text>
 
-          {isProblemService && (
+          {service.status === "Problem Service" && (
             <>
-              <Text style={styles.section}>Attachments</Text>
-              {renderAttachments(true)}
-              <TouchableOpacity
-                style={styles.reattachBtn}
-                onPress={() => {
-                  console.log('Re-Attachment pressed');
-                  // Add your image picker/camera logic here
-                }}
-              >
-                <Text style={styles.reattachText}>Re-Attachment</Text>
-              </TouchableOpacity>
+              <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={styles.section}>Attachments</Text>
+                <Button
+                isActive={false}
+                  title={"Re-Attachment"}
+                  containerStyle={styles.btnStyle}
+                  textStyle={styles.butTxt}
+                     activeStyle={{ backgroundColor: isClicked ? 'green' : 'red' }}
+                  onPress={() => {
+                    console.log('Re-Attachment pressed yyy');
+                  }}
+                />
+
+              </View>
+              {service.attachments?.length > 0 ? (
+                <FlatList
+                  data={service.attachments}
+                  horizontal
+                  keyExtractor={(_, index) => index.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.attachmentList}
+                  renderItem={({ item }) => (
+                    <Image
+                      source={item}
+                      style={styles.attachmentThumbnail}
+                      resizeMode="cover"
+                    />
+                  )}
+                />
+              ) : (
+                <Text style={styles.noAttachmentText}>No attachments available.</Text>
+              )}
+              {/* {renderAttachments(true)} */}
+             
             </>
           )}
 
@@ -80,7 +123,12 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.acceptBtn}
-              onPress={() => navigation.navigate('location')}
+             onPress={() => {
+    onPress(); // Close the modal
+    setTimeout(() => {
+      navigation.navigate('Request',{service:service});
+    }, 200);
+  }}
             >
               <Text style={styles.acceptText}>Accept</Text>
             </TouchableOpacity>
@@ -98,14 +146,14 @@ const ServiceCard = ({ service, expanded, onPress, navigation }) => {
       <Text style={styles.title}>{service.title}</Text>
       <Text style={styles.location}>{service.location}</Text>
       <Text>{service.description}</Text>
-      {renderAttachments(false)}
+      {/* {renderAttachments(false)} */}
       <View style={styles.actions}>
         <TouchableOpacity style={styles.rejectBtn} onPress={onPress}>
           <Text>Reject</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.acceptBtn}
-          onPress={() => navigation.navigate('location')}
+          onPress={() => navigation.navigate('Request')}
         >
           <Text style={styles.acceptText}>Accept</Text>
         </TouchableOpacity>
@@ -221,6 +269,32 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  attachmentList: {
+    paddingVertical: 8,
+    paddingLeft: 10,
+  },
+  attachmentThumbnail: {
+    width: 90,
+    height: 90,
+    borderRadius: 8,
+    marginRight: 10,
+    backgroundColor: '#eee',
+  },
+  noAttachmentText: {
+    fontStyle: 'italic',
+    color: '#999',
+    paddingLeft: 10,
+  },
+  btnStyle: {
+    height: 25,
+    width: 150,
+    // backgroundColor: '#6200ee',
+  },
+  butTxt: {
+    fontSize: 10,
+    fontWeight: '400',
+    color:'#000000'
+  }
 });
 
 export default ServiceCard;

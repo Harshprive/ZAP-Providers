@@ -24,70 +24,70 @@ import DutyToggle from "./HomeComponets/DutyToggle";
 import ServiceCard from "./HomeComponets/ServiceCard";
 
 const mockServices = [
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-status:"Schedule Service"
+  {
+    title: "Washing Machine Service",
+    location: "paul pagba Shankar Nagar",
+    description:
+      "Machine making loud noise during Cycle.Water leaking Form bottom.",
+    attachments: [
+      // require('./assets/img1.jpg'),
+      // require('./assets/img2.jpg'),
+    ],
+    userLocation: "Your Location",
+    serviceLocation: "Mumbai, Shankar Nagar",
+    distance: "5.2 Km",
+    estimatedTime: "20 Min",
+    status: "Schedule Service"
 
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-      status:"Main Service"
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-      status:"Main Service"
-    },
-    {
-      title: "Washing Machine Service",
-      location: "paul pagba Shankar Nagar",
-      description:
-        "Machine making loud noise during Cycle.Water leaking Form bottom.",
-      attachments: [
-        // require('./assets/img1.jpg'),
-        // require('./assets/img2.jpg'),
-      ],
-      userLocation: "Your Location",
-      serviceLocation: "Mumbai, Shankar Nagar",
-      distance: "5.2 Km",
-      estimatedTime: "20 Min",
-      status:"Problem Service"
-    },
-    
-    // Add more service objects as needed
-  ];
+  },
+  {
+    title: "Washing Machine Service",
+    location: "paul pagba Shankar Nagar",
+    description:
+      "Machine making loud noise during Cycle.Water leaking Form bottom.",
+    attachments: [
+      // require('./assets/img1.jpg'),
+      // require('./assets/img2.jpg'),
+    ],
+    userLocation: "Your Location",
+    serviceLocation: "Mumbai, Shankar Nagar",
+    distance: "5.2 Km",
+    estimatedTime: "20 Min",
+    status: "Main Service"
+  },
+  {
+    title: "Washing Machine Service",
+    location: "paul pagba Shankar Nagar",
+    description:
+      "Machine making loud noise during Cycle.Water leaking Form bottom.",
+    attachments: [
+      // require('./assets/img1.jpg'),
+      // require('./assets/img2.jpg'),
+    ],
+    userLocation: "Your Location",
+    serviceLocation: "Mumbai, Shankar Nagar",
+    distance: "5.2 Km",
+    estimatedTime: "20 Min",
+    status: "Main Service"
+  },
+  {
+    title: "Washing Machine Service",
+    location: "paul pagba Shankar Nagar",
+    description:
+      "Machine making loud noise during Cycle.Water leaking Form bottom.",
+    attachments: [
+      require('../../../assets/washMachine.png'),
+      require('../../../assets/washMachine2.png'),
+    ],
+    userLocation: "Your Location",
+    serviceLocation: "Mumbai, Shankar Nagar",
+    distance: "5.2 Km",
+    estimatedTime: "20 Min",
+    status: "Problem Service"
+  },
+
+  // Add more service objects as needed
+];
 
 // const ServiceCard = ({ service, onPress, expanded }) => {
 //   const navigation = useNavigation();
@@ -197,12 +197,12 @@ status:"Schedule Service"
 // };
 
 
- 
+
 
 export default function Home() {
   const [selectedService, setSelectedService] = useState(null);
   const [showProduct, setShowProduct] = useState(true);
-const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
   const [activeMode, setActiveMode] = useState('on');
 
   const getFilteredServices = () => {
@@ -214,24 +214,24 @@ const [expandedIndex, setExpandedIndex] = useState(null);
           ['Problem Service', 'Schedule Service',].includes(service.status)
         );
       case 'on':
-         return mockServices.filter(service =>
-          ['Problem Service', 'Main Service','Schedule Service'].includes(service.status)
+        return mockServices.filter(service =>
+          ['Problem Service', 'Main Service', 'Schedule Service'].includes(service.status)
         );
       default:
         return mockServices;
     }
   };
-  
+
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.headerContainer}>
+      <View style={styles.headerContainer}>
         <HomeHeader
           name={"Allan Smith"}
           onPressed={() => setShowProduct((prev) => !prev)}
         />
       </View>
-     <DutyToggle activeMode={activeMode} setActiveMode={setActiveMode} />
+      <DutyToggle activeMode={activeMode} setActiveMode={setActiveMode} />
       <FlatList
         contentContainerStyle={styles.list}
         data={getFilteredServices()}
@@ -250,11 +250,7 @@ const [expandedIndex, setExpandedIndex] = useState(null);
           </View>
         }
       />
-       {/* <ScrollView contentContainerStyle={styles.contentContainer}>
-        {showProduct ? <HomeRequest /> : <Currentservice />}
-      </ScrollView>
-    */}
-      {/* <Footer></Footer> */}
+    
     </SafeAreaView>
   );
 }
@@ -263,11 +259,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
- headerContainer: {
-// marginTop:30
-},
+  headerContainer: {
+    // marginTop:30
+  },
   brandText: {
     fontSize: 24,
     fontWeight: "bold",

@@ -16,6 +16,8 @@ import Messages from '../screens/MessagesScreens/Messages';
 import Schedule from '../screens/ScheduleScreens/Schedule';
 import Profile from '../screens/ProfileScreen/Profile';
 
+import CleaningServiceScreen from '../screens/RequestScreens/RequestDetails';
+
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const TAB_ICONS = {
@@ -99,6 +101,12 @@ export default function App() {
           <Stack.Screen
             name="MyTab"
             component={MyTabs}
+            options={{ headerShown: false }}
+          />
+
+           <Stack.Screen
+            name="CleaningServiceScreen"
+            component={CleaningServiceScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -9,7 +9,7 @@ const CustomButton = ({
     activeStyle = styles.buttonActive,
     disabledStyle = styles.buttonDisabled,
     textStyle = styles.buttonText,
-    containerStyle,
+    containerStyle ,
 }) => {
     return (
         <TouchableOpacity
