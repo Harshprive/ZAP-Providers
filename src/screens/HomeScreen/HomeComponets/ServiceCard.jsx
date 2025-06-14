@@ -21,7 +21,6 @@ const ServiceCard = ({ service, expanded, onPress }) => {
 
   const renderAttachments = (isExpanded) => {
     if (!isProblemService || !service.attachments?.length) return null;
-
     return (
       <View
         style={isExpanded ? styles.attachmentsExpanded : styles.attachments}
@@ -138,15 +137,14 @@ const ServiceCard = ({ service, expanded, onPress }) => {
             <View style={styles.locationRow}>
               {Array.from({ length: service.weeks }, (_, index) => (
                 <TouchableOpacity
-      key={index}
-      style={styles.box}
-      onPress={() => {
-        console.log(`Repair View for Week ${index + 1}`);
-        // Optionally show repair modal or navigate
-      }}
-    >
-      <Text style={{ textAlign: 'center' }}>{index + 1}</Text>
-    </TouchableOpacity>
+                  key={index}
+                  style={styles.box}
+                  onPress={() => {
+                    console.log(`Repair View for Week ${index + 1}`);
+                  }}
+                >
+                  <Text style={{ textAlign: 'center' }}>{index + 1}</Text>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
@@ -341,17 +339,17 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#ffffff",
   },
-  box:{
-        width: 30,
-        padding: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: '#000000',
-        marginRight: 8,
-        borderRadius: 5,
-        backgroundColor: '#F0F0F0',
-      }
+  box: {
+    width: 30,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#000000',
+    marginRight: 8,
+    borderRadius: 5,
+    backgroundColor: '#F0F0F0',
+  }
 });
 
 export default ServiceCard;
