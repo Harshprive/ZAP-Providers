@@ -78,22 +78,22 @@ const ServiceCard = ({ service, expanded, onPress }) => {
                   textStyle={styles.butTxt}
                   //  activeStyle={{ backgroundColor: isClicked ? 'green' : 'red' }}
                   onPress={() => {
-               Alert.alert(
-  "Send to Re-Attachment",
-  "Are you sure you want to send the image for re-attachment?",
-  [
-    {
-      text: "No",
-      onPress: () => console.log("Cancelled"),
-      style: "cancel",
-    },
-    {
-      text: "Yes",
-      onPress: () => console.log("Confirmed"),
-    },
-  ],
-  { cancelable: false }
-);
+                    Alert.alert(
+                      "Send to Re-Attachment",
+                      "Are you sure you want to send the image for re-attachment?",
+                      [
+                        {
+                          text: "No",
+                          onPress: () => console.log("Cancelled"),
+                          style: "cancel",
+                        },
+                        {
+                          text: "Yes",
+                          onPress: () => console.log("Confirmed"),
+                        },
+                      ],
+                      { cancelable: false }
+                    );
                   }}
                 />
               </View>
@@ -123,13 +123,34 @@ const ServiceCard = ({ service, expanded, onPress }) => {
           <View style={styles.locationGroup}>
             <View style={styles.locationRow}>
               <Ionicons name="location-outline" size={20} color="#666" />
-              <Text>{service.userLocation}</Text>
+              <Text style={styles.section}>Location</Text>
             </View>
             <View style={styles.locationRow}>
-              <Ionicons name="location-outline" size={20} color="#666" />
               <Text>{service.serviceLocation}</Text>
             </View>
           </View>
+
+          <View style={styles.locationGroup}>
+            <View style={styles.locationRow}>
+              <Ionicons name="calendar-outline" size={20} color="#666" />
+              <Text style={styles.section}>Weeks</Text>
+            </View>
+            <View style={styles.locationRow}>
+              {Array.from({ length: service.weeks }, (_, index) => (
+                <TouchableOpacity
+      key={index}
+      style={styles.box}
+      onPress={() => {
+        console.log(`Repair View for Week ${index + 1}`);
+        // Optionally show repair modal or navigate
+      }}
+    >
+      <Text style={{ textAlign: 'center' }}>{index + 1}</Text>
+    </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
 
           <View style={styles.details}>
             <Text>Distance: {service.distance}</Text>
@@ -241,11 +262,15 @@ const styles = StyleSheet.create({
   },
   section: {
     fontWeight: "600",
-    marginTop: 16,
-    marginBottom: 8,
+    marginVertical: 8,
+    // marginTop: 16,
+    // marginBottom: 8,
   },
   locationGroup: {
     marginTop: 12,
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   locationRow: {
     flexDirection: "row",
@@ -316,6 +341,17 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#ffffff",
   },
+  box:{
+        width: 30,
+        padding: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#000000',
+        marginRight: 8,
+        borderRadius: 5,
+        backgroundColor: '#F0F0F0',
+      }
 });
 
 export default ServiceCard;
