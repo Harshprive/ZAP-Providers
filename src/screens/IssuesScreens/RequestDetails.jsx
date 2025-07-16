@@ -42,27 +42,31 @@ const mockServices = [
 
 const CleaningServiceScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [DateModalVisible, setDateModalVisible] = useState(false);
+  const [dateModalVisible, setDateModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisible] = useState(false);
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
+  const handleConfirmDate = (date) => {
+    const formattedDate = date.toLocaleDateString();
+    setSelectedDate(formattedDate);
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    hideDatePicker();
+  const handleConfirmTime = (time) => {
+    const formattedTime = time.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setSelectedTime(formattedTime);
+    setTimePickerVisible(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" style="" />
+      <StatusBar barStyle="dark-content" style="auto" />
       <HeaderTitle />
       {mockServices.map((service, index) => (
         <View style={{ padding: 16 }} key={index}>
@@ -128,12 +132,6 @@ const CleaningServiceScreen = ({ navigation }) => {
                 </Text>
               )}
             </>
-            {/* <Text style={styles.section}>Attachments</Text>
-                        <View style={[styles.imagesContainer, { marginTop: 12 }]}>
-                            {service.attachments.map((img, i) => (
-                                <Image source={img} style={styles.image} key={i} />
-                            ))}
-                        </View> */}
 
             <View style={styles.locationGroup}>
               <View style={styles.locationRow}>
@@ -205,58 +203,60 @@ const CleaningServiceScreen = ({ navigation }) => {
 
       {/* Date Modal */}
       <CustomModal
-        visible={DateModalVisible}
+        visible={dateModalVisible}
         onClose={() => setDateModalVisible(false)}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
-          Set Date Modal
-        </Text>
-        <Button title="Show Date Picker" onPress={showDatePicker} />
+        <View style={{ alignItems: "center", padding: 10 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
+            Set Appointment Date
+          </Text>
+
+          <TouchableOpacity
+            onPress={() => setDatePickerVisibility(true)}
+            style={styles.pickerButton}
+          >
+            <Text style={styles.pickerText}>Choose Date</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => setTimePickerVisible(true)}
+            style={[styles.pickerButton, { backgroundColor: "#4CAF50" }]}
+          >
+            <Text style={styles.pickerText}>Choose Time</Text>
+          </TouchableOpacity>
+
+          {selectedDate && (
+            <Text style={styles.pickedInfo}>📅 {selectedDate}</Text>
+          )}
+          {selectedTime && (
+            <Text style={styles.pickedInfo}>⏰ {selectedTime}</Text>
+          )}
+
+          <TouchableOpacity
+            onPress={() => setDateModalVisible(false)}
+            style={[
+              styles.pickerButton,
+              { backgroundColor: "#000", marginTop: 10 },
+            ]}
+          >
+            <Text style={styles.pickerText}>Confirm</Text>
+          </TouchableOpacity>
+        </View>
+
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
+          onConfirm={handleConfirmDate}
+          onCancel={() => setDatePickerVisibility(false)}
+        />
+
+        <DateTimePickerModal
+          isVisible={isTimePickerVisible}
+          mode="time"
+          onConfirm={handleConfirmTime}
+          onCancel={() => setTimePickerVisible(false)}
         />
       </CustomModal>
-
-      {/* <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <Pressable
-            style={styles.modalOverlay}
-            onPress={() => setModalVisible(false)}
-          >
-            <Image
-              source={selectedImage}
-              style={styles.fullImage}
-              resizeMode="contain"
-            />
-          </Pressable>
-        </View>
-      </Modal> */}
-      {/* <Modal
-        visible={DateModalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setDateModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <Pressable
-            style={styles.modalOverlay}
-            onPress={() => setDateModalVisible(false)}
-          >
-            <Text style={{ color: "#fff", fontSize: 20, fontWeight: "bold" }}>
-              Set Date Modal
-            </Text>
-            <Text style={{ color: "#fff", fontSize: 16, marginTop: 10 }}></Text>
-          </Pressable>
-        </View>
-      </Modal> */}
     </SafeAreaView>
   );
 };
@@ -441,6 +441,25 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").height * 0.7,
     borderRadius: 10,
+  },
+   butTxt: {
+    fontSize: 10,
+    fontWeight: "400",
+    color: "#ffffff",
+  },
+  pickerButton: {
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: "#6200EE",
+    alignItems: "center",
+  },
+  pickerText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  pickedInfo: {
+    marginTop: 8,
+    fontSize: 16,
   },
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Ionicons,
   FontAwesome5,
@@ -8,35 +8,41 @@ import {
   Entypo,
   MaterialCommunityIcons,
   Feather,
-} from '@expo/vector-icons';
-import PropTypes from 'prop-types';
+} from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
-const CustomIcon = ({ name, size, color, type, style }) => {
+const CustomIcon = ({
+  name,
+  size = 24, // ✅ Default value here
+  color = "black", // ✅ Default value here
+  type = "Ionicons", // ✅ Default value here
+  style = {}, // ✅ Default value here
+}) => {
   let IconComponent;
 
   switch (type) {
-    case 'FontAwesome5':
+    case "FontAwesome5":
       IconComponent = FontAwesome5;
       break;
-    case 'MaterialIcons':
+    case "MaterialIcons":
       IconComponent = MaterialIcons;
       break;
-    case 'FontAwesome':
+    case "FontAwesome":
       IconComponent = FontAwesome;
       break;
-    case 'AntDesign':
+    case "AntDesign":
       IconComponent = AntDesign;
       break;
-    case 'Entypo':
+    case "Entypo":
       IconComponent = Entypo;
       break;
-    case 'MaterialCommunityIcons':
+    case "MaterialCommunityIcons":
       IconComponent = MaterialCommunityIcons;
       break;
-    case 'Feather':
+    case "Feather":
       IconComponent = Feather;
       break;
-    case 'Ionicons':
+    case "Ionicons":
     default:
       IconComponent = Ionicons;
   }
@@ -49,23 +55,18 @@ CustomIcon.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
   type: PropTypes.oneOf([
-    'Ionicons',
-    'FontAwesome5',
-    'MaterialIcons',
-    'FontAwesome',
-    'AntDesign',
-    'Entypo',
-    'MaterialCommunityIcons',
-    'Feather',
+    "Ionicons",
+    "FontAwesome5",
+    "MaterialIcons",
+    "FontAwesome",
+    "AntDesign",
+    "Entypo",
+    "MaterialCommunityIcons",
+    "Feather",
   ]),
   style: PropTypes.object,
 };
 
-CustomIcon.defaultProps = {
-  size: 24,
-  color: 'black',
-  type: 'Ionicons',
-  style: {},
-};
+// ✅ Removed defaultProps — now using JS default parameters
 
 export default CustomIcon;
