@@ -15,7 +15,10 @@ import Button from "../../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
 const ServiceCard = ({ service, expanded, onPress }) => {
-  const isProblemService = service.type?.toLowerCase() === "problem";
+  const isProblemService = service.status?.toLowerCase() === "problem service";
+  const isMainService = service.status?.toLowerCase() === "main service";
+  // console.log("ServiceCard Props:", service.status?.toLowerCase());
+  // const isProblemService = service.type?.toLowerCase() === "problem";
   const [isClicked, setIsClicked] = useState(false);
   const navigation = useNavigation();
 
@@ -143,12 +146,11 @@ const ServiceCard = ({ service, expanded, onPress }) => {
                     console.log(`Repair View for Week ${index + 1}`);
                   }}
                 >
-                  <Text style={{ textAlign: 'center' }}>{index + 1}</Text>
+                  <Text style={{ textAlign: "center" }}>{index + 1}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
-
 
           <View style={styles.details}>
             <Text>Distance: {service.distance}</Text>
@@ -193,7 +195,21 @@ const ServiceCard = ({ service, expanded, onPress }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.acceptBtn}
-          onPress={() => navigation.navigate("Request")}
+          onPress={() => {
+            console.log(
+              "Accepting service:",
+              service?.status,
+              isMainService,
+              isProblemService
+            );
+            if (isMainService) {
+              navigation.navigate("ClientLocation");
+            } else if (isProblemService) {
+              navigation.navigate("Issues", { service });
+            } else {
+              navigation.navigate("Schedule", { service });
+            }
+          }}
         >
           <Text style={styles.acceptText}>Accept</Text>
         </TouchableOpacity>
@@ -266,7 +282,7 @@ const styles = StyleSheet.create({
   },
   locationGroup: {
     marginTop: 12,
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -332,7 +348,7 @@ const styles = StyleSheet.create({
   btnStyle: {
     height: 25,
     width: 120,
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   butTxt: {
     fontSize: 10,
@@ -342,14 +358,14 @@ const styles = StyleSheet.create({
   box: {
     width: 30,
     padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: "#000000",
     marginRight: 8,
     borderRadius: 5,
-    backgroundColor: '#F0F0F0',
-  }
+    backgroundColor: "#F0F0F0",
+  },
 });
 
 export default ServiceCard;

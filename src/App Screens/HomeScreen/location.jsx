@@ -83,7 +83,7 @@ export default function ClientLocationScreen({ navigation }) {
                                                                       onPress={() => navigation.navigate("Home")}
                                                         />
                                           </View>
-                                          <Text onPress={() => navigation.navigate("Startservice")}>start service </Text>
+                                          <Text onPress={() => navigation.navigate("ClientServicePage")}>start service </Text>
                                           <View style={[styles.buttonContainer]}>
                                                         <Button
                                                                       title="Start Service"
