@@ -19,8 +19,8 @@ import Profile from "../screens/ProfileScreen/Profile";
 import CleaningServiceScreen from "../screens/IssuesScreens/RequestDetails";
 import SetDatePage from "../screens/IssuesScreens/RequestComponents/SetDatePage";
 import ClientLocationScreen from "../screens/LocationScreen/Location";
-import ClientServicePage from "../App Screens/components/Currentservice";
-
+// import ClientServicePage from "../App Screens/components/Currentservice";
+import ClientServicePage from "../screens/ClientServiceScreen/Currentservice";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const TAB_ICONS = {
